@@ -1,1 +1,3 @@
-# final-frontend
+# FINAL PROJECT
+
+Employees and tasks
