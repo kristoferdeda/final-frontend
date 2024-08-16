@@ -34,7 +34,6 @@ function AllEmployeesView({employees, deleteEmployee}) {
   return (
     <div id="bgview" style={{display: "flex", flexDirection: "column", padding: "8px", minWidth: "500px"}} >
       <Link to={`/`}><button style={{margin: "8px"}}>Back to Home</button></Link>
-      <Link to={`/employees/new`}><button style={{margin: "8px"}}>Add Employee</button></Link>
       <div style={ulStyle}>
         {employees.map((todo, idx) => {
           let styleBool = idx === employees.length - 1 ? liStyleLastChild : liStyle;
@@ -47,7 +46,6 @@ function AllEmployeesView({employees, deleteEmployee}) {
                     <Link to={`/tasks/${task.id}`}> {task.content ? task.content : "None"}</Link>
                 ))}
               </h5>
-              <button onClick={() => deleteEmployee(todo.id)}>Delete</button>
             </div>
           );
         })}
