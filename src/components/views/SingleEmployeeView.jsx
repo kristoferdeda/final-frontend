@@ -22,6 +22,8 @@ function SingleEmployeeView({employee}) {
                     <p>None</p>
                 )}
             <Link to={`/employees`}><button style={{margin: "8px"}}>Back to All Employees</button></Link>
+            <Link to={`edit/`}><button style={{margin: "8px"}}>Edit Employee information</button></Link>
+
           </article>
         </section>
       );

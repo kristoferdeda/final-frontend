@@ -41,7 +41,7 @@ function AllTasksView({ tasks, deleteTask }) {
           return (
             <div key={todo.id} style={styleBool}>
               <h4>Task #{idx+1}: <Link to={`/tasks/${todo.id}`}>{todo.content}</Link></h4>
-              <h5>Assigned to: Employee {todo.employeeId}</h5>
+              <h5>Assigned to: {todo.employee.firstname} {todo.employee.lastname}</h5>
               <h5>{todo.completed ? "COMPLETED" : "IN PROGRESS"}</h5>
               <button onClick={() => deleteTask(todo.id)}>Delete</button>
             </div>

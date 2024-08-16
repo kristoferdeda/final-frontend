@@ -11,6 +11,10 @@ export function employeesReducer(state = initialState, action) {
           return [...state, action.payload];
       case 'employees/employeeDeleted':
           return state.filter(employee => employee.id !== action.payload);
+      case 'employees/employeeUpdated':
+          return state.map(employee => 
+            employee.id===action.payload.id ? action.payload : employee
+          );
       default:
           return state;
   }
@@ -44,7 +48,7 @@ export const deleteEmployee = employeeId => async dispatch => {
   }
 };
 
-
+// Add
 export const addEmployee = employee => async dispatch => {
   try {
     const res = await axios.post(`${PATH}`, employee);
@@ -56,3 +60,12 @@ export const addEmployee = employee => async dispatch => {
   }
 };
 
+/* EDIT TASK */
+export const editEmployee = employee => async dispatch => {
+  try {
+      const res = await axios.put(`${PATH}/${employee.id}`, employee);
+      dispatch({ type: 'employees/employeeUpdated', payload: res.data });
+  } catch (err) {
+      console.error("Error editing employee:", err);
+  }
+};
