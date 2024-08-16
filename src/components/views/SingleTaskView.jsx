@@ -18,7 +18,7 @@ function SingleTaskView({ task, employees, handleSubmit}) {
     
       return (
         <div>
-        <Link to="../tasks">Back to all tasks</Link>
+        <Link to="../tasks"><button style={{margin: "8px"}}>Back to all tasks</button></Link>
         <section>
           <article>
             <h2>{task.content}</h2>
@@ -27,7 +27,7 @@ function SingleTaskView({ task, employees, handleSubmit}) {
           </article>
         </section>
         <hr/>
-        <Link to={`edit/`}><h3>Edit task information</h3></Link>
+        <Link to={`edit/`}><button style={{margin: "8px"}}>Edit task information</button></Link>
       
         </div>
 

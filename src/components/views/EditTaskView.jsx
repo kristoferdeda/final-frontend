@@ -11,7 +11,7 @@ function EditTaskView({ task, employees, handleSubmit}) {
 
       return (
         <div>
-        <h3 style={{textDecoration: "underline",}}>Edit task information: </h3>
+        <h3>Edit task information: </h3>
         <form onSubmit={handleSubmit} id="edittaskform">
             <label> Description: 
               <input name="taskContent" defaultValue={task.content} required/> 
@@ -45,7 +45,7 @@ function EditTaskView({ task, employees, handleSubmit}) {
             </label>
             <button>Save Task</button>
           </form>
-          <Link to={`../tasks`}>Back to all tasks</Link>
+          <Link to={`../tasks`}><button>Back to all tasks</button></Link>
         </div>
 
       );
