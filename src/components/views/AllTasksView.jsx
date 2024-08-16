@@ -11,6 +11,7 @@ let liStyle = {
   padding: "8px 16px",
   borderBottom: "3px solid #0d0",
   backgroundColor: "#e5f0e1",
+  textAlign: "center", // Center the content inside each list item
 };
 
 let liStyleLastChild = {
@@ -21,7 +22,6 @@ let liStyleLastChild = {
 import { Link } from "react-router-dom";
 
 function AllTasksView({ tasks, deleteTask }) {
-
   if (!tasks.length) {
     return (
       <>
@@ -31,26 +31,41 @@ function AllTasksView({ tasks, deleteTask }) {
       </>
     );
   }
+
   return (
-    <div id="bgview" style={{display: "flex", flexDirection: "column", padding: "8px", minWidth: "500px"}} >
-      <Link to={`/`}><button style={{margin: "8px"}}>Back to Home</button></Link>
-      <Link to={`/tasks/new`}><button style={{margin: "8px"}}>Add Task</button></Link>
+    <div id="bgview" style={{ display: "flex", flexDirection: "column", padding: "8px", minWidth: "500px" }} >
+      <Link to={`/`}><button style={{ margin: "8px" }}>Back to Home</button></Link>
+      <Link to={`/tasks/new`}><button style={{ margin: "8px" }}>Add Task</button></Link>
       <div style={ulStyle}>
         {tasks.map((todo, idx) => {
           let styleBool = idx === tasks.length - 1 ? liStyleLastChild : liStyle;
           return (
             <div key={todo.id} style={styleBool}>
-              <h4>Task #{idx+1}: <Link to={`/tasks/${todo.id}`}>{todo.content}</Link></h4>
-              <h5>Assigned to: {todo.employee.firstname} {todo.employee.lastname}</h5>
+              <h4>Task #{idx + 1}: <Link to={`/tasks/${todo.id}`}>{todo.content}</Link></h4>
+
+              {/* Check if employee is assigned and add link */}
+              <h5>
+                Assigned to: {todo.employee ? (
+                  <Link to={`/employees/${todo.employee.id}`}>
+                    {`${todo.employee.firstname} ${todo.employee.lastname}`}
+                  </Link>
+                ) : "Unassigned"}
+              </h5>
+
               <h5>{todo.completed ? "COMPLETED" : "IN PROGRESS"}</h5>
-              <button onClick={() => deleteTask(todo.id)}>Delete</button>
+
+              <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
+                <button onClick={() => deleteTask(todo.id)}>Delete</button>
+                <Link to={`/tasks/${todo.id}/edit`}>
+                  <button>Edit</button>
+                </Link>
+              </div>
             </div>
           );
         })}
       </div>
     </div>
   );
-
 }
 
 export default AllTasksView;

@@ -2,7 +2,6 @@
 const initialState = [];
 
 
-// Reducer
 export function employeesReducer(state = initialState, action) {
   switch (action.type) {
       case 'employees/employeesLoaded':
@@ -13,12 +12,13 @@ export function employeesReducer(state = initialState, action) {
           return state.filter(employee => employee.id !== action.payload);
       case 'employees/employeeUpdated':
           return state.map(employee => 
-            employee.id===action.payload.id ? action.payload : employee
+            employee.id === action.payload.id ? action.payload : employee
           );
       default:
           return state;
   }
 }
+
 
 
 //API calls go here
@@ -60,12 +60,14 @@ export const addEmployee = employee => async dispatch => {
   }
 };
 
-/* EDIT TASK */
-export const editEmployee = employee => async dispatch => {
+// Thunk for editing an employee
+export const editEmployee = (employee) => async dispatch => {
   try {
       const res = await axios.put(`${PATH}/${employee.id}`, employee);
       dispatch({ type: 'employees/employeeUpdated', payload: res.data });
+      return res.data; // Return data for chaining
   } catch (err) {
       console.error("Error editing employee:", err);
+      throw err; // Throw error to be caught in .catch()
   }
 };

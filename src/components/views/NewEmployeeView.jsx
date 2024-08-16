@@ -17,7 +17,7 @@ function NewEmployeeView({ handleSubmit }) {
             <br />
             <label>
                 Department:
-                <input type="text" name="department" />
+                <input type="text" name="department" required/>
             </label>
             <br />
             <button type="submit">Add Employee</button>

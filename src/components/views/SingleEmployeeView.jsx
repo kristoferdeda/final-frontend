@@ -14,13 +14,18 @@ function SingleEmployeeView({employee}) {
           <article>
             <h2>Name: {employee.firstname} {employee.lastname}</h2>
             <h5>Department: {employee.department ? employee.department : "None"}</h5>
-                {employee.tasks.length > 0 ? (
-                    employee.tasks.map(task => (
-                        <h5 key={task.id}>Tasks Assigned: {task.content}</h5>
-                    ))
-                ) : (
-                    <p>None</p>
-                )}
+            <h5>Tasks Assigned: 
+              {employee.tasks && employee.tasks.length > 0 ? (
+                employee.tasks.map((task, index) => (
+                  <span key={task.id}>
+                    <Link to={`/tasks/${task.id}`}> {task.content ? task.content : "None"}</Link>
+                    {index < employee.tasks.length - 1 && ", "}
+                  </span>
+                ))
+              ) : (
+                <span> No tasks assigned</span>
+              )}
+            </h5>
             <Link to={`/employees`}><button style={{margin: "8px"}}>Back to All Employees</button></Link>
             <Link to={`edit/`}><button style={{margin: "8px"}}>Edit Employee information</button></Link>
 

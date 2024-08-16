@@ -1,18 +1,37 @@
 import { useParams } from 'react-router-dom';
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
+import { fetchEmployees } from '../../store/employeesSlice';
+import { useEffect, useState } from 'react';
 import SingleEmployeeView from '../views/SingleEmployeeView';
 
 function SingleEmployeeContainer() {
-  let { employeeId } = useParams(); // Get the employee ID from the URL
-  employeeId = parseInt(employeeId); // Convert to integer
+  const { employeeId } = useParams();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
-  // Get the employee from the state based on the URL parameter
+  useEffect(() => {
+    const loadData = async () => {
+      await dispatch(fetchEmployees());
+      setLoading(false);
+    };
+    loadData();
+  }, [dispatch]);
+
   const employee = useSelector(state =>
-    state.employees.find(employee => employee.id === employeeId)
+    state.employees.find(emp => emp.id === parseInt(employeeId))
   );
 
-  return <SingleEmployeeView employee={employee} />;
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!employee) {
+    return <div>Employee not found!</div>;
+  }
+
+  return (
+    <SingleEmployeeView employee={employee} />
+  );
 }
 
 export default SingleEmployeeContainer;
