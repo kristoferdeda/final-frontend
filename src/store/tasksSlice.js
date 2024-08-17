@@ -1,4 +1,3 @@
-//REDUCER
 const initialState = [];
 
 export function tasksReducer(state = initialState, action) {
@@ -18,14 +17,10 @@ export function tasksReducer(state = initialState, action) {
     }
 };
 
-//API calls go here
 import axios from "axios";
-//PATH (should be where your server is running)
 const PATH = "http://localhost:5001/api/tasks";
 
-//Thunks
 
-/* GET ALL TASKS */
 export const fetchTasks = () => async (dispatch) => {
   try {
     let res = await axios.get(`${PATH}`);
@@ -35,18 +30,15 @@ export const fetchTasks = () => async (dispatch) => {
   }
 };
 
-/* DELETE TASK */
 export const deleteTask = taskId => async dispatch => {
   try {
     await axios.delete(`${PATH}/${taskId}`);
-    //delete succesful so change state with dispatch
     dispatch({type: 'tasks/taskDeleted', payload: taskId});
   } catch(err) {
     console.error(err);
   }
 };
 
-/* ADD TASK */
 export const addTask = task => async (dispatch) => {
   try {
     let res = await axios.post(`${PATH}`, task);
@@ -57,11 +49,9 @@ export const addTask = task => async (dispatch) => {
   }
 };
 
-/* EDIT TASK */
 export const editTask = task => async dispatch => {
   try {
     let res = await axios.put(`${PATH}/${task.id}`, task);
-    //res.data is the updated course
     dispatch({type: 'tasks/taskUpdated', payload: res.data});
   } catch(err) {
     console.error(err);

@@ -57,7 +57,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-//Redux
 import { Provider } from "react-redux";
 import store from "./store";
 

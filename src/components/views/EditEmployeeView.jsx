@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function EditEmployeeView({ employee, handleSubmit }) {
     const [tasks, setTasks] = useState(employee?.tasks || []);
-    const [newTasks, setNewTasks] = useState([""]); // Initialize with one empty field for a new task
+    const [newTasks, setNewTasks] = useState([""]); 
 
     if (!employee) {
         return (

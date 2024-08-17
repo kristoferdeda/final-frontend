@@ -11,7 +11,7 @@ let liStyle = {
   padding: "8px 16px",
   borderBottom: "3px solid #0d0",
   backgroundColor: "#e5f0e1",
-  textAlign: "center", // Center the content inside each list item
+  textAlign: "center", 
 };
 
 let liStyleLastChild = {
@@ -43,7 +43,6 @@ function AllTasksView({ tasks, deleteTask }) {
             <div key={todo.id} style={styleBool}>
               <h4>Task #{idx + 1}: <Link to={`/tasks/${todo.id}`}>{todo.content}</Link></h4>
 
-              {/* Check if employee is assigned and add link */}
               <h5>
                 Assigned to: {todo.employee ? (
                   <Link to={`/employees/${todo.employee.id}`}>

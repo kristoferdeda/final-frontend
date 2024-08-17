@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { fetchEmployees, editEmployee } from '../../store/employeesSlice';
-import { fetchTasks, addTask, deleteTask, editTask } from '../../store/tasksSlice'; // Import task actions
+import { fetchTasks, addTask, deleteTask, editTask } from '../../store/tasksSlice'; 
 import { useEffect } from 'react';
 import EditEmployeeView from '../views/EditEmployeeView';
 
@@ -11,7 +11,7 @@ function EditEmployeeContainer() {
 
   useEffect(() => {
     dispatch(fetchEmployees());
-    dispatch(fetchTasks()); // Fetch tasks to ensure all data is up to date
+    dispatch(fetchTasks()); 
   }, [dispatch]);
 
   const employee = useSelector(state =>
@@ -30,25 +30,20 @@ function EditEmployeeContainer() {
       department: formData.get('department')
     };
 
-    // Handle existing tasks: update or delete
     for (let task of employee.tasks) {
       if (!updatedTasks.some(t => t.id === task.id)) {
-        // Task is not in the updated list, so remove it
         await dispatch(deleteTask(task.id));
       } else {
-        // Task is in the updated list, update it
         const updatedTask = updatedTasks.find(t => t.id === task.id);
         await dispatch(editTask({ ...task, content: updatedTask.content }));
       }
     }
 
-    // Handle new tasks: add them to the database
     const newTasks = updatedTasks.filter(t => !t.id);
     for (let task of newTasks) {
       await dispatch(addTask({ ...task, employeeId: employee.id }));
     }
 
-    // Dispatch the action to edit the employee
     await dispatch(editEmployee(updatedEmployee));
     alert("Employee and tasks updated successfully!");
   };
