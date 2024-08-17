@@ -11,7 +11,7 @@ let liStyle = {
   padding: "8px 16px",
   borderBottom: "3px solid #0d0",
   backgroundColor: "#e5f0e1",
-  textAlign: "center", // Center the content inside each list item
+  textAlign: "center", 
 };
 
 let liStyleLastChild = {
@@ -21,7 +21,7 @@ let liStyleLastChild = {
 
 import { Link } from "react-router-dom";
 
-function AllEmployeesView({ employees = [], deleteEmployee }) { // Default to an empty array if employees is undefined
+function AllEmployeesView({ employees = [], deleteEmployee }) { 
   if (!employees.length) {
     return (
       <>
